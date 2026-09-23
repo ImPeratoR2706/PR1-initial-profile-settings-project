@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "setting_id": 1,
+    "key": "theme",
+    "value": "dark",
+    "value_type": "str",
+    "default_value": "light",
+    "min_value": null,
+    "max_value": null,
+    "allowed_values": [
+      "light",
+      "dark",
+      "system"
+    ]
+  },
+  {
+    "id": 2,
+    "setting_id": 1,
+    "key": "font_size",
+    "value": 20,
+    "value_type": "int",
+    "default_value": 12,
+    "min_value": 10,
+    "max_value": 24,
+    "allowed_values": null
+  },
+  {
+    "id": 3,
+    "setting_id": 2,
+    "key": "email_enabled",
+    "value": true,
+    "value_type": "bool",
+    "default_value": true,
+    "min_value": null,
+    "max_value": null,
+    "allowed_values": null
+  },
+  {
+    "id": 4,
+    "setting_id": 1,
+    "key": "theme",
+    "value": "asd",
+    "value_type": "str",
+    "default_value": "asd",
+    "min_value": null,
+    "max_value": null,
+    "allowed_values": null
+  }
+]
