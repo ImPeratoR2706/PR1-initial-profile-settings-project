@@ -24,3 +24,15 @@ def input_choice(prompt: str, options: list) -> str:
         if raw_value in options:
             return raw_value
         print(f"Ошибка: допустимые значения - {', '.join(options)}.")
+
+
+def log_call(func):
+    """Декоратор: логировать вызов функции (демонстрация декоратора)."""
+    import functools
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"[LOG] Вызов {func.__name__}")
+        return func(*args, **kwargs)
+
+    return wrapper

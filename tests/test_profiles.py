@@ -1,27 +1,31 @@
-"""Тесты функций работы с профилями."""
+"""Тесты класса Profile."""
 
-from profiles import add_profile, find_profiles_by_name, sort_profiles
-
-
-def test_add_profile():
-    profiles = []
-    profile = add_profile(profiles, "Рабочий профиль", "Иван", "Описание")
-    assert len(profiles) == 1
-    assert profile["name"] == "Рабочий профиль"
+from models import Profile, Setting, User
 
 
-def test_find_profiles_by_name():
-    profiles = []
-    add_profile(profiles, "Рабочий профиль", "Иван", "Описание")
-    add_profile(profiles, "Личный профиль", "Иван", "Описание")
-    found = find_profiles_by_name(profiles, "рабочий")
-    assert len(found) == 1
-    assert found[0]["name"] == "Рабочий профиль"
+def _make_user() -> User:
+    return User(1, "Иван Петров", "ivan@example.com")
 
 
-def test_sort_profiles():
-    profiles = []
-    add_profile(profiles, "Личный профиль", "Иван", "Описание")
-    add_profile(profiles, "Рабочий профиль", "Иван", "Описание")
-    sorted_profiles = sort_profiles(profiles)
-    assert sorted_profiles[0]["name"] == "Личный профиль"
+def test_profile_creation():
+    user = _make_user()
+    profile = Profile(1, user, "Рабочий профиль", "Описание")
+    assert profile.id == 1
+    assert profile.user is user
+    assert profile.settings == []
+
+
+def test_profile_add_and_find_setting():
+    user = _make_user()
+    profile = Profile(1, user, "Рабочий профиль", "Описание")
+    setting = Setting(1, profile, "Внешний вид")
+    profile.add_setting(setting)
+    assert profile.find_setting("Внешний вид") is setting
+    assert profile.find_setting("Уведомления") is None
+
+
+def test_profile_str():
+    user = _make_user()
+    profile = Profile(1, user, "Рабочий профиль", "Описание")
+    assert "Рабочий профиль" in str(profile)
+    assert "Иван Петров" in str(profile)

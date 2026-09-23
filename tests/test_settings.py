@@ -1,31 +1,29 @@
-"""Тесты функций работы с настройками."""
+"""Тесты класса Setting."""
 
-from settings import (
-    add_setting,
-    find_setting_by_category,
-    find_settings_by_profile,
-)
+from models import Parameter, Profile, Setting, User
 
 
-def test_add_setting():
-    settings = []
-    setting = add_setting(settings, 1, "Внешний вид")
-    assert len(settings) == 1
-    assert setting["category"] == "Внешний вид"
+def _make_setting() -> Setting:
+    user = User(1, "Иван Петров", "ivan@example.com")
+    profile = Profile(1, user, "Рабочий профиль", "Описание")
+    return Setting(1, profile, "Внешний вид")
 
 
-def test_find_settings_by_profile():
-    settings = []
-    add_setting(settings, 1, "Внешний вид")
-    add_setting(settings, 2, "Уведомления")
-    found = find_settings_by_profile(settings, 1)
-    assert len(found) == 1
-    assert found[0]["category"] == "Внешний вид"
+def test_setting_creation():
+    setting = _make_setting()
+    assert setting.id == 1
+    assert setting.category == "Внешний вид"
+    assert setting.parameters == []
 
 
-def test_find_setting_by_category():
-    settings = []
-    add_setting(settings, 1, "Внешний вид")
-    setting = find_setting_by_category(settings, 1, "Внешний вид")
-    assert setting is not None
-    assert setting["profile_id"] == 1
+def test_setting_add_and_find_parameter():
+    setting = _make_setting()
+    parameter = Parameter(1, setting, "theme", "dark", "str", "light")
+    setting.add_parameter(parameter)
+    assert setting.find_parameter("theme") is parameter
+    assert setting.find_parameter("font_size") is None
+
+
+def test_setting_str():
+    setting = _make_setting()
+    assert "Внешний вид" in str(setting)
