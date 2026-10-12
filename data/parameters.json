@@ -8,11 +8,7 @@
     "default_value": "light",
     "min_value": null,
     "max_value": null,
-    "allowed_values": [
-      "light",
-      "dark",
-      "system"
-    ]
+    "allowed_values": ["light", "dark", "system"]
   },
   {
     "id": 2,
